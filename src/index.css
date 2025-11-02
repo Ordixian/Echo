@@ -1,51 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: #f3f4f6;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-/* Glass effect utility */
-.glass {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.1);
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif;
 }
 
-/* Glow effect */
-.glow-accent {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-/* Smooth scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom scrollbar for overflow areas */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: rgba(30, 41, 59, 0.3);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3b82f6;
+  background: rgba(59, 130, 246, 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #60a5fa;
+  background: rgba(59, 130, 246, 0.7);
 }
 
-/* Card hover effect */
-.card-hover {
-  transition: all 0.3s ease;
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
