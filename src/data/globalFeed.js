@@ -3,5 +3,5 @@ export default [
   { region: "Europe", detections: 62 },
   { region: "Asia", detections: 97 },
   { region: "South America", detections: 45 },
-  { region: "Africa", detections: 28 }
+  { region: "Africa", detections: 38 }
 ];
