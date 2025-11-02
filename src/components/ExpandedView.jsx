@@ -5,7 +5,10 @@ import GlobalFeedChart from "./charts/GlobalFeedChart";
 import NodeHealthChart from "./charts/NodeHealthChart";
 import ThreatScoreDisplay from "./charts/ThreatScoreDisplay";
 import ActivityLogsDisplay from "./charts/ActivityLogsDisplay";
-import { downloadData } from "../utils/downloadData";
+import localDetectionsData from "../data/localDetections";
+import globalFeedData from "../data/globalFeed";
+import nodeHealthData from "../data/nodeHealth";
+import activityLogs from "../data/logs";
 
 function ExpandedView({ panel, onClose }) {
   const titles = {
@@ -14,6 +17,41 @@ function ExpandedView({ panel, onClose }) {
     health: 'Node Health',
     threat: 'AI Threat Score',
     logs: 'Activity Logs'
+  };
+
+  const downloadData = (type) => {
+    let data, csvContent;
+    
+    switch(type) {
+      case 'logs':
+        data = activityLogs;
+        csvContent = 'Time,Event,Severity\n' + data.map(l => `${l.time},"${l.event}",${l.severity}`).join('\n');
+        break;
+      case 'detections':
+        data = localDetectionsData;
+        csvContent = 'Type,Count\n' + data.map(d => `${d.type},${d.count}`).join('\n');
+        break;
+      case 'global':
+        data = globalFeedData;
+        csvContent = 'Region,Detections\n' + data.map(d => `${d.region},${d.detections}`).join('\n');
+        break;
+      case 'health':
+        data = nodeHealthData;
+        csvContent = 'Status,Value\n' + data.map(d => `${d.status},${d.value}`).join('\n');
+        break;
+      default:
+        csvContent = '';
+    }
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `echolock-${type}-${Date.now()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
